@@ -29,7 +29,7 @@ function FindProxyForURL(url, host) {
 
     // Lup App library (via apps.lup.com.au)
     if (host == "lupmarvinthemartianprodu.blob.core.windows.net" ||
-        host == "lupmarvinthemartianprlgy.blob.core.windows.net") {
+        host == "lupmarvinthemartianprlgy.blob.core.windows.net") { // NOTE this is different from the line above.
         return "DIRECT";
     }
 
@@ -125,6 +125,9 @@ function FindProxyForURL(url, host) {
         return "DIRECT";
     }
 
-    // Black-hole all other requests
-    return "PROXY 127.0.0.1:8080";
+
+    // ------------------ SUPERMASSIVE BLACK HOLE ------------------
+    // Based on: https://www.youtube.com/watch?v=Xsp3_a-PMTw
+    //return "PROXY 127.0.0.1:8080";
+    return "PROXY hq.lup.events:8085"; // Diagnostic proxy - logs and denies requests
 }
