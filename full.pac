@@ -99,7 +99,8 @@ function FindProxyForURL(url, host) {
     // Based on: https://www.youtube.com/watch?v=Xsp3_a-PMTw
     // Junk requests - skip logging
     if (host == "c.apple.news" ||
-        host == "calendars.icloud.com") {
+        host == "calendars.icloud.com" ||
+        host == "apple-finance.query.yahoo.com") {
         return "PROXY 127.0.0.1:8080";
     }
     return "PROXY 127.0.0.1:8080";
