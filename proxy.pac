@@ -163,23 +163,18 @@ function FindProxyForURL(url, host) {
         host == "ocsp.digicert.com" || // Added even though apparently it doesn't have proxy support - it's being used still!
         host == "ocsp.entrust.net" || // Added even though apparently it doesn't have proxy support - it's being used still!
         host == "ocsp.verisign.net" || // Added even though apparently it doesn't have proxy support - it's being used still!
-        host == "valid.apple.com") {
+        host == "valid.apple.com" ||
+        host == "cacerts.digicert.com") { // Not listed on Apple's site, but detected used on boot
         return "DIRECT";
     }
-
-    // Junk - DENIED
-    /*
-    if (host == "c.apple.news" || // Apple News ?
-        shExpMatch(host, "*.ls.apple.com")) { // Apple Maps ??
-        return "PROXY 127.0.0.1:8080"; // NOTE!!! Explicitly blackholed, so it doesn't taint debugging logging
-    }*/
 
     // Mystery - these are called when attempting to install an app from the app store
     if (host == "smoot.apple.com" || shExpMatch(host, "*.smoot.apple.com") || // Spotlight search?
         host == "gateway.icloud.com" ||
-        host == "pancake.apple.com" ||
-        host == "tr.iadsdk.apple.com" ||
-        host == "xp.apple.com") {
+        host == "pancake.apple.com" || // Home sharing detection?
+        host == "iadsdk.apple.com" || shExpMatch(host, "*.iadsdk.apple.com") ||
+        host == "ls.apple.com" || shExpMatch(host, "*.ls.apple.com") ||
+        host == "xp.apple.com") { // Statistics?
         return "DIRECT";
     }
 
