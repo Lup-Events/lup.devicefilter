@@ -51,7 +51,7 @@ function FindProxyForURL(url, host) {
 
     // ------------------ APPLE ------------------
     // Based on  https://support.apple.com/en-us/HT210060
-    // Note: hosts without proxy support and hosts supporting updates are omitted
+    // Note that non-proxy addresses are included, as they are being used via proxy!
 
     // Apple device setup
     if (host == "albert.apple.com" ||
@@ -59,16 +59,24 @@ function FindProxyForURL(url, host) {
         host == "gs.apple.com" ||
         host == "humb.apple.com" ||
         host == "static.ips.apple.com" ||
-        host == "tbsc.apple.com"
+        host == "sq-device.apple.com" || // eSIM activation
+        host == "tbsc.apple.com" ||
+        host == "time-ios.apple.com" || // Used by devices to set their date and time
+        host == "time.apple.com" || // Used by devices to set their date and time
+        host == "time-macos.apple.com" // Used by devices to set their date and time
     ) {
         return "DIRECT";
     }
 
     // Apple device management
     if (host == "push.apple.com" || shExpMatch(host, "*.push.apple.com") || // Push notifications
+        host == "gdmf.apple.com" || // Used by an MDM server to identify which software updates are available to devices that use managed software updates
+        host == "deviceenrollment.apple.com" || // DEP provisional enrollment
+        host == "deviceservices-external.apple.com" ||
         host == "identity.apple.com" || // APNs certificate request portal.
         host == "iprofiles.apple.com" || // Hosts enrollment profiles used when devices enroll in Apple School Manager or Apple Business Manager through Device Enrollment
         host == "mdmenrollment.apple.com" || // MDM servers to upload enrollment profiles used by clients enrolling through Device Enrollment in Apple School Manager or Apple Business Manager, and to look up devices and accounts.
+        host == "setup.icloud.com" || // Required to log in with a Managed Apple ID on Shared iPad
         host == "vpp.itunes.apple.com" // MDM servers to perform operations related to Apps and Books, like assigning or revoking licenses on a device.
     ) {
         return "DIRECT";
@@ -80,11 +88,48 @@ function FindProxyForURL(url, host) {
         return "DIRECT";
     }
 
+    // Software update - DENIED!!
+    if (host == "appldnld.apple.com" || // iOS updates
+        host == "configuration.apple.com" || // Rosetta 2 updates
+        host == "gg.apple.com" || // iOS, tvOS, and macOS update
+        host == "gnf-mdn.apple.com" || // macOS updates
+        host == "gnf-mr.apple.co" || // macOS updates
+        host == "gs.apple.com" || // macOS updates	
+        host == "ig.apple.com" || // macOS updates	
+        host == "mesu.apple.com" || // Hosts software update catalogs
+        host == "ns.itunes.apple.com" ||
+        host == "oscdn.apple.com" || // macOS Recovery
+        host == "osrecovery.apple.com" || // macOS Recovery
+        host == "skl.apple.com" || // macOS updates	
+        host == "swcdn.apple.com" || // macOS updates	
+        host == "swdist.apple.com" || // macOS updates	
+        host == "swdownload.apple.com" || // macOS updates
+        host == "swpost.apple.com" || // macOS updates
+        host == "swscan.apple.com" || // macOS updates
+        host == "updates-http.cdn-apple.com" ||
+        host == "updates.cdn-apple.com" ||
+        host == "xp.apple.com") {
+        return "PROXY 127.0.0.1:8080"; // NOTE!!! Explicitly blackholed, so it doesn't taint debugging logging
+    }
+
     // Apple App store
     if (host == "itunes.apple.com" || shExpMatch(host, "*.itunes.apple.com") || // Store content such as apps, books, and music
         host == "apps.apple.com" || shExpMatch(host, "*.apps.apple.com") || // Store content such as apps, books, and music
-        host == "itunes.apple.com" // Apple enterprise verification
+        host == "mzstatic.com" || shExpMatch(host, "*.mzstatic.com") || // Store content such as apps, books, and music
+        host == "itunes.apple.com" || // Apple enterprise verification
+        host == "ppq.apple.com" // Enterprise App validation
     ) {
+        return "DIRECT";
+    }
+
+    // Content caching
+    if (host == "lcdn-registration.apple.com" || // Content caching server registration
+        host == "serverstatus.apple.com") { // Content caching client public IP determination
+        return "DIRECT";
+    }
+
+    // App validation
+    if (host == "appattest.apple.com" || shExpMatch(host, "*.appattest.apple.com")) {
         return "DIRECT";
     }
 
@@ -119,28 +164,10 @@ function FindProxyForURL(url, host) {
         return "DIRECT";
     }
 
-    // Software update
-    if (host == "appldnld.apple.com" || // iOS updates
-        host == "configuration.apple.com" || // Rosetta 2 updates
-        host == "gg.apple.com" || // iOS, tvOS, and macOS update
-        host == "gnf-mdn.apple.com" || // macOS updates
-        host == "gnf-mr.apple.co" || // macOS updates
-        host == "gs.apple.com" || // macOS updates	
-        host == "ig.apple.com" || // macOS updates	
-        host == "mesu.apple.com" || // Hosts software update catalogs
-        host == "ns.itunes.apple.com" ||
-        host == "oscdn.apple.com" || // macOS Recovery
-        host == "osrecovery.apple.com" || // macOS Recovery
-        host == "skl.apple.com" || // macOS updates	
-        host == "swcdn.apple.com" || // macOS updates	
-        host == "swdist.apple.com" || // macOS updates	
-        host == "swdownload.apple.com" || // macOS updates
-        host == "swpost.apple.com" || // macOS updates
-        host == "swscan.apple.com" || // macOS updates
-        host == "updates-http.cdn-apple.com" ||
-        host == "updates.cdn-apple.com" ||
-        host == "xp.apple.com") {
-        return "PROXY 127.0.0.1:8080"; // Explicitly blackholed, so it doesn't taint debugging logging
+    // Junk
+    if (host == "c.apple.news" || // Apple News ?
+        shExpMatch(host, "*.ls.apple.com")) { // Apple Maps ??
+        return "PROXY 127.0.0.1:8080"; // NOTE!!! Explicitly blackholed, so it doesn't taint debugging logging
     }
 
 
