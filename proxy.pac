@@ -173,7 +173,7 @@ function FindProxyForURL(url, host) {
     }
 
     // Mystery - these are called when attempting to install an app from the app store
-    if (host == "api.smoot.apple.com" ||
+    if (host == "smoot.apple.com" || shExpMatch(host, "*.smoot.apple.com") || // Spotlight search?
         host == "gateway.icloud.com" ||
         host == "pancake.apple.com" ||
         host == "tr.iadsdk.apple.com" ||
