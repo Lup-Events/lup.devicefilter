@@ -6,6 +6,14 @@
  */
 
 function FindProxyForURL(url, host) {
+    // Block iOS updates - this should never be removed, otherwise our data usage will be significant!
+    if (host == "mesu.apple.com" ||
+        host == "appldnld.apple.com" ||
+        host == "updates-http.cdn-apple.com" ||
+        host == "updates.cdn-apple.com") {
+        return "PROXY 127.0.0.1:8080";
+    }
+
     // ------------------  LUP CORE ------------------
     // Lup Platform
     if (host == "lup.events" || shExpMatch(host, "*.lup.events") || // Production
@@ -155,25 +163,29 @@ function FindProxyForURL(url, host) {
 
     // Apple certificate validation 
     if (
-        host == "crl.apple.com" || // Added even though apparently it doesn't have proxy support - it's being used still!
-        host == "crl.entrust.net" || // Added even though apparently it doesn't have proxy support - it's being used still!
-        host == "crl3.digicert.com" || // Added even though apparently it doesn't have proxy support - it's being used still!
-        host == "crl4.digicert.com" || // Added even though apparently it doesn't have proxy support - it's being used still!
-        host == "ocsp.apple.com" || // Added even though apparently it doesn't have proxy support - it's being used still!
-        host == "ocsp.digicert.com" || // Added even though apparently it doesn't have proxy support - it's being used still!
-        host == "ocsp.entrust.net" || // Added even though apparently it doesn't have proxy support - it's being used still!
-        host == "ocsp.verisign.net" || // Added even though apparently it doesn't have proxy support - it's being used still!
+        host == "crl.apple.com" ||
+        host == "crl.entrust.net" ||
+        host == "crl3.digicert.com" ||
+        host == "crl4.digicert.com" ||
+        host == "ocsp.apple.com" ||
+        host == "ocsp.digicert.com" ||
+        host == "ocsp.entrust.net" ||
+        host == "ocsp.verisign.net" ||
         host == "valid.apple.com" ||
         host == "cacerts.digicert.com") { // Not listed on Apple's site, but detected used on boot
         return "DIRECT";
     }
 
-    // Mystery - these are called when attempting to install an app from the app store
+    // Extras - these are called when attempting to install an app from the app store, not exactly sure what many are
     if (host == "smoot.apple.com" || shExpMatch(host, "*.smoot.apple.com") || // Spotlight search?
         host == "gateway.icloud.com" ||
+        host == "setup.icloud.com" ||
         host == "pancake.apple.com" || // Home sharing detection?
         host == "iadsdk.apple.com" || shExpMatch(host, "*.iadsdk.apple.com") ||
-        host == "ls.apple.com" || shExpMatch(host, "*.ls.apple.com")) {
+        host == "ls.apple.com" || shExpMatch(host, "*.ls.apple.com" ||
+            host == "init-p01md.apple.com" ||
+            host == "cl1.apple.com" ||
+            host == "static.ess.apple.com")) { // Captive portal connectivity check
         return "DIRECT";
     }
 
@@ -196,7 +208,8 @@ function FindProxyForURL(url, host) {
     // ------------------ SUPERMASSIVE BLACK HOLE ------------------
     // Based on: https://www.youtube.com/watch?v=Xsp3_a-PMTw
     // Junk requests - skip logging
-    if (host == "c.apple.news") {
+    if (host == "c.apple.news" ||
+        host == "calendars.icloud.com") {
         return "PROXY 127.0.0.1:8080";
     }
     return "PROXY hq.lup.events:8085"; // Diagnostic proxy - logs and denies requests
