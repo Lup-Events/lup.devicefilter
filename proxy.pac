@@ -2,6 +2,7 @@
  * Proxy auto-config filtering script. This script minimises device's data usage by redirecting all traffic not white-listed to a non-existant proxy server.
  * For a basic understanding of proxy auto-config see https://en.wikipedia.org/wiki/Proxy_auto-config
  * For a developers reference see https://developer.mozilla.org/en-US/docs/Web/HTTP/Proxy_servers_and_tunneling/Proxy_Auto-Configuration_PAC_file
+ * Use this tool to check syntax if needed https://app.thorsen.pm/proxyforurl
  */
 
 function FindProxyForURL(url, host) {
@@ -107,8 +108,9 @@ function FindProxyForURL(url, host) {
         host == "swpost.apple.com" || // macOS updates
         host == "swscan.apple.com" || // macOS updates
         host == "updates-http.cdn-apple.com" ||
-        host == "updates.cdn-apple.com" ||
-        host == "xp.apple.com") {
+        host == "updates.cdn-apple.com" //||
+        //host == "xp.apple.com"
+    ) {
         return "PROXY 127.0.0.1:8080"; // NOTE!!! Explicitly blackholed, so it doesn't taint debugging logging
     }
 
@@ -174,7 +176,8 @@ function FindProxyForURL(url, host) {
     if (host == "api.smoot.apple.com" ||
         host == "gateway.icloud.com" ||
         host == "pancake.apple.com" ||
-        host == "tr.iadsdk.apple.com") {
+        host == "tr.iadsdk.apple.com" ||
+        host == "xp.apple.com") {
         return "DIRECT";
     }
 
