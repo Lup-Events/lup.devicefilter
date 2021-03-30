@@ -89,16 +89,16 @@ function FindProxyForURL(url, host) {
         return "DIRECT";
     }
 
-    // Software update - DENIED
-    /*
-    if (host == "appldnld.apple.com" || // iOS updates
+    // Software update - some are DENIED to block iOS updates
+    if (
+        //host == "appldnld.apple.com" || // iOS updates
         host == "configuration.apple.com" || // Rosetta 2 updates
         host == "gg.apple.com" || // iOS, tvOS, and macOS update
         host == "gnf-mdn.apple.com" || // macOS updates
         host == "gnf-mr.apple.co" || // macOS updates
         host == "gs.apple.com" || // macOS updates	
         host == "ig.apple.com" || // macOS updates	
-        host == "mesu.apple.com" || // Hosts software update catalogs
+        //host == "mesu.apple.com" || // Hosts software update catalogs (Provides an XML file with information about available iOS updates.)
         host == "ns.itunes.apple.com" ||
         host == "oscdn.apple.com" || // macOS Recovery
         host == "osrecovery.apple.com" || // macOS Recovery
@@ -108,12 +108,12 @@ function FindProxyForURL(url, host) {
         host == "swdownload.apple.com" || // macOS updates
         host == "swpost.apple.com" || // macOS updates
         host == "swscan.apple.com" || // macOS updates
-        host == "updates-http.cdn-apple.com" ||
-        host == "updates.cdn-apple.com" //||
-        //host == "xp.apple.com"
+        //host == "updates-http.cdn-apple.com" || // This appears to be the big bad one supplying iOS updates
+        //host == "updates.cdn-apple.com" //
+        host == "xp.apple.com"
     ) {
-        return "PROXY 127.0.0.1:8080"; // NOTE!!! Explicitly blackholed, so it doesn't taint debugging logging
-    }*/
+        return "DIRECT";
+    }
 
     // Apple App store
     if (host == "itunes.apple.com" || shExpMatch(host, "*.itunes.apple.com") || // Store content such as apps, books, and music
@@ -173,8 +173,7 @@ function FindProxyForURL(url, host) {
         host == "gateway.icloud.com" ||
         host == "pancake.apple.com" || // Home sharing detection?
         host == "iadsdk.apple.com" || shExpMatch(host, "*.iadsdk.apple.com") ||
-        host == "ls.apple.com" || shExpMatch(host, "*.ls.apple.com") ||
-        host == "xp.apple.com") { // Statistics?
+        host == "ls.apple.com" || shExpMatch(host, "*.ls.apple.com")) {
         return "DIRECT";
     }
 
@@ -196,6 +195,9 @@ function FindProxyForURL(url, host) {
 
     // ------------------ SUPERMASSIVE BLACK HOLE ------------------
     // Based on: https://www.youtube.com/watch?v=Xsp3_a-PMTw
-    //return "PROXY 127.0.0.1:8080";
+    // Junk requests - skip logging
+    if (host == "c.apple.news") {
+        return "PROXY 127.0.0.1:8080";
+    }
     return "PROXY hq.lup.events:8085"; // Diagnostic proxy - logs and denies requests
 }
