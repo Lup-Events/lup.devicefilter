@@ -170,6 +170,13 @@ function FindProxyForURL(url, host) {
         return "PROXY 127.0.0.1:8080"; // NOTE!!! Explicitly blackholed, so it doesn't taint debugging logging
     }
 
+    // Mystery - these are called when attempting to install an app from the app store
+    if (host == "api.smoot.apple.com" ||
+        host == "gateway.icloud.com" ||
+        host == "pancake.apple.com" ||
+        host == "tr.iadsdk.apple.com") {
+        return "DIRECT";
+    }
 
     // ------------------ STRIPE ------------------
     // Based on https://stripe.com/docs/ips
