@@ -60,134 +60,24 @@ function FindProxyForURL(url, host) {
 
     // ------------------ APPLE ------------------
     // Based on  https://support.apple.com/en-us/HT210060
-    // Note that non-proxy addresses are included, as they are being used via proxy!
 
-    // Apple device setup
-    if (host == "albert.apple.com" ||
-        host == "captive.apple.com" || // Internet connectivity validation for networks that use captive portals.
-        host == "gs.apple.com" ||
-        host == "humb.apple.com" ||
-        host == "static.ips.apple.com" ||
-        host == "sq-device.apple.com" || // eSIM activation
-        host == "tbsc.apple.com" ||
-        host == "time-ios.apple.com" || // Used by devices to set their date and time
-        host == "time.apple.com" || // Used by devices to set their date and time
-        host == "time-macos.apple.com" // Used by devices to set their date and time
-    ) {
+    if (shExpMatch(host, "*.apple.com") || shExpMatch(host, "*.*.apple.com")) {
+        return "DIRECT";
+    }
+    if (shExpMatch(host, "*.icloud.com")) {
         return "DIRECT";
     }
 
-    // Apple device management
-    if (host == "push.apple.com" || shExpMatch(host, "*.push.apple.com") || // Push notifications
-        host == "gdmf.apple.com" || // Used by an MDM server to identify which software updates are available to devices that use managed software updates
-        host == "deviceenrollment.apple.com" || // DEP provisional enrollment
-        host == "deviceservices-external.apple.com" ||
-        host == "identity.apple.com" || // APNs certificate request portal.
-        host == "iprofiles.apple.com" || // Hosts enrollment profiles used when devices enroll in Apple School Manager or Apple Business Manager through Device Enrollment
-        host == "mdmenrollment.apple.com" || // MDM servers to upload enrollment profiles used by clients enrolling through Device Enrollment in Apple School Manager or Apple Business Manager, and to look up devices and accounts.
-        host == "setup.icloud.com" || // Required to log in with a Managed Apple ID on Shared iPad
-        host == "vpp.itunes.apple.com" // MDM servers to perform operations related to Apps and Books, like assigning or revoking licenses on a device.
-    ) {
+    // Store content
+    if (host == "mzstatic.com" || shExpMatch(host, "*.mzstatic.com")) {
         return "DIRECT";
     }
 
-    // Apple Business Manager
-    if (host == "business.apple.com" || shExpMatch(host, "*.business.apple.com") || // Apple Business Manager
-        host == "isu.apple.com") {
+    // Certificate validation
+    if (shExpMatch(host, "*.entrust.net") || shExpMatch(host, "*.digicert.com") || shExpMatch(host, "*.verisign.net") || shExpMatch(host, "*.digicert.com")) {
         return "DIRECT";
     }
 
-    // Software update - some are DENIED to block iOS updates
-    if (
-        //host == "appldnld.apple.com" || // iOS updates
-        host == "configuration.apple.com" || // Rosetta 2 updates
-        host == "gg.apple.com" || // iOS, tvOS, and macOS update
-        host == "gnf-mdn.apple.com" || // macOS updates
-        host == "gnf-mr.apple.co" || // macOS updates
-        host == "gs.apple.com" || // macOS updates	
-        host == "ig.apple.com" || // macOS updates	
-        //host == "mesu.apple.com" || // Hosts software update catalogs (Provides an XML file with information about available iOS updates.)
-        host == "ns.itunes.apple.com" ||
-        host == "oscdn.apple.com" || // macOS Recovery
-        host == "osrecovery.apple.com" || // macOS Recovery
-        host == "skl.apple.com" || // macOS updates	
-        host == "swcdn.apple.com" || // macOS updates	
-        host == "swdist.apple.com" || // macOS updates	
-        host == "swdownload.apple.com" || // macOS updates
-        host == "swpost.apple.com" || // macOS updates
-        host == "swscan.apple.com" || // macOS updates
-        //host == "updates-http.cdn-apple.com" || // This appears to be the big bad one supplying iOS updates
-        //host == "updates.cdn-apple.com" //
-        host == "xp.apple.com"
-    ) {
-        return "DIRECT";
-    }
-
-    // Apple App store
-    if (host == "itunes.apple.com" || shExpMatch(host, "*.itunes.apple.com") || // Store content such as apps, books, and music
-        host == "apps.apple.com" || shExpMatch(host, "*.apps.apple.com") || // Store content such as apps, books, and music
-        host == "mzstatic.com" || shExpMatch(host, "*.mzstatic.com") || // Store content such as apps, books, and music
-        host == "itunes.apple.com" || // Apple enterprise verification
-        host == "ppq.apple.com" // Enterprise App validation
-    ) {
-        return "DIRECT";
-    }
-
-    // Content caching
-    if (host == "lcdn-registration.apple.com" || // Content caching server registration
-        host == "serverstatus.apple.com") { // Content caching client public IP determination
-        return "DIRECT";
-    }
-
-    // App validation
-    if (host == "appattest.apple.com" || shExpMatch(host, "*.appattest.apple.com")) {
-        return "DIRECT";
-    }
-
-    // Apple Feedback Assistant
-    if (host == "fba.apple.com" || // Used by Feedback Assistant to file and view feedback
-        host == "cssubmissions.apple.com" || // Used by Feedback Assistant to upload files
-        host == "bpapi.apple.com") { // Provides beta software updates
-        return "DIRECT";
-    }
-
-    // Apple diagnostics
-    if (host == "diagassets.apple.com") { // Used by Apple devices to help detect possible hardware issues
-        return "DIRECT";
-    }
-
-    // Apple Domain Name System resolution
-    if (host == "doh.dns.apple.com") { // Used for DNS over HTTPS (DoH)
-        return "DIRECT";
-    }
-
-    // Apple certificate validation 
-    if (
-        host == "crl.apple.com" ||
-        host == "crl.entrust.net" ||
-        host == "crl3.digicert.com" ||
-        host == "crl4.digicert.com" ||
-        host == "ocsp.apple.com" ||
-        host == "ocsp.digicert.com" ||
-        host == "ocsp.entrust.net" ||
-        host == "ocsp.verisign.net" ||
-        host == "valid.apple.com" ||
-        host == "cacerts.digicert.com") { // Not listed on Apple's site, but detected used on boot
-        return "DIRECT";
-    }
-
-    // Extras - these are called when attempting to install an app from the app store, not exactly sure what many are
-    if (host == "smoot.apple.com" || shExpMatch(host, "*.smoot.apple.com") || // Spotlight search?
-        host == "gateway.icloud.com" ||
-        host == "setup.icloud.com" ||
-        host == "pancake.apple.com" || // Home sharing detection?
-        host == "iadsdk.apple.com" || shExpMatch(host, "*.iadsdk.apple.com") ||
-        host == "ls.apple.com" || shExpMatch(host, "*.ls.apple.com" ||
-            host == "init-p01md.apple.com" ||
-            host == "cl1.apple.com" ||
-            host == "static.ess.apple.com")) { // Captive portal connectivity check
-        return "DIRECT";
-    }
 
     // ------------------ STRIPE ------------------
     // Based on https://stripe.com/docs/ips
