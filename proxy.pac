@@ -98,5 +98,6 @@ function FindProxyForURL(url, host) {
         host == "calendars.icloud.com") {
         return "PROXY 127.0.0.1:8080";
     }
-    return "PROXY hq.lup.events:8085"; // Diagnostic proxy - logs and denies requests
+    return "PROXY 127.0.0.1:8080";
+    //return "PROXY hq.lup.events:8085"; // Diagnostic proxy - logs and denies requests
 }
