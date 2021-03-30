@@ -106,7 +106,16 @@ function FindProxyForURL(url, host) {
     }
 
     // Apple certificate validation 
-    if (host == "valid.apple.com") {
+    if (
+        host == "crl.apple.com" || // Added even though apparently it doesn't have proxy support - it's being used still!
+        host == "crl.entrust.net" || // Added even though apparently it doesn't have proxy support - it's being used still!
+        host == "crl3.digicert.com" || // Added even though apparently it doesn't have proxy support - it's being used still!
+        host == "crl4.digicert.com" || // Added even though apparently it doesn't have proxy support - it's being used still!
+        host == "ocsp.apple.com" || // Added even though apparently it doesn't have proxy support - it's being used still!
+        host == "ocsp.digicert.com" || // Added even though apparently it doesn't have proxy support - it's being used still!
+        host == "ocsp.entrust.net" || // Added even though apparently it doesn't have proxy support - it's being used still!
+        host == "ocsp.verisign.net" || // Added even though apparently it doesn't have proxy support - it's being used still!
+        host == "valid.apple.com") {
         return "DIRECT";
     }
 
