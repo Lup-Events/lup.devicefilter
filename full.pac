@@ -1,5 +1,9 @@
-// DEPRECATED - PLEASE DELETE AFTER 31/March
-// using full.pac and minial.pac instead
+/**
+ * Proxy auto-config filtering script. This script minimises device's data usage by redirecting all traffic not white-listed to a non-existant proxy server.
+ * For a basic understanding of proxy auto-config see https://en.wikipedia.org/wiki/Proxy_auto-config
+ * For a developers reference see https://developer.mozilla.org/en-US/docs/Web/HTTP/Proxy_servers_and_tunneling/Proxy_Auto-Configuration_PAC_file
+ * Use this tool to check syntax if needed https://app.thorsen.pm/proxyforurl
+ */
 
 function FindProxyForURL(url, host) {
     // Block iOS updates - this should never be removed, otherwise our data usage will be significant!
