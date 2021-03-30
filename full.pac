@@ -7,17 +7,17 @@
 
 function FindProxyForURL(url, host) {
     // Block iOS updates - this should never be removed, otherwise our data usage will be significant!
-    if (host == "mesu.apple.com" ||
-        host == "appldnld.apple.com" ||
-        host == "updates-http.cdn-apple.com" ||
-        host == "updates.cdn-apple.com") {
+    if (host == "mesu.apple.com"
+        || host == "appldnld.apple.com"
+        || host == "updates-http.cdn-apple.com"
+        || host == "updates.cdn-apple.com") {
         return "PROXY 127.0.0.1:8080";
     }
 
     // ------------------  LUP CORE ------------------
     // Lup Platform
-    if (host == "lup.events" || shExpMatch(host, "*.lup.events") || // Production
-        host == "lupstaging.events" || shExpMatch(host, "*.lupstaging.events")) { // Staging
+    if (host == "lup.events" || shExpMatch(host, "*.lup.events")// Production
+        || host == "lupstaging.events" || shExpMatch(host, "*.lupstaging.events")) { // Staging
         return "DIRECT";
     }
 
@@ -37,8 +37,8 @@ function FindProxyForURL(url, host) {
     }
 
     // Lup App library (via apps.lup.com.au)
-    if (host == "lupmarvinthemartianprodu.blob.core.windows.net" ||
-        host == "lupmarvinthemartianprlgy.blob.core.windows.net") { // NOTE this is different from the line above.
+    if (host == "lupmarvinthemartianprodu.blob.core.windows.net"
+        || host == "lupmarvinthemartianprlgy.blob.core.windows.net") { // NOTE this is different from the line above.
         return "DIRECT";
     }
 
@@ -54,14 +54,17 @@ function FindProxyForURL(url, host) {
     }
 
     // Meraki MDM app deployment
-    if (host == "meraki-apac.s3.amazonaws.com" || shExpMatch(host, "*.s3.amazonaws.com") || shExpMatch(host, "*.amazonaws.com")) { // Yep, this is super broad and stinks, but fit for purpose
+    if (host == "meraki-apac.s3.amazonaws.com"
+        || shExpMatch(host, "*.s3.amazonaws.com")
+        || shExpMatch(host, "*.amazonaws.com")) { // Yep, this is super broad and stinks, but fit for purpose
         return "DIRECT";
     }
 
     // ------------------ APPLE ------------------
     // Based on  https://support.apple.com/en-us/HT210060
 
-    if (shExpMatch(host, "*.apple.com") || shExpMatch(host, "*.*.apple.com")) {
+    if (shExpMatch(host, "*.apple.com")
+        || shExpMatch(host, "*.*.apple.com")) { // This probably isn't needed - but didn't want to waste time checking
         return "DIRECT";
     }
     if (shExpMatch(host, "*.icloud.com")) {
@@ -74,23 +77,26 @@ function FindProxyForURL(url, host) {
     }
 
     // Certificate validation
-    if (shExpMatch(host, "*.entrust.net") || shExpMatch(host, "*.digicert.com") || shExpMatch(host, "*.verisign.net") || shExpMatch(host, "*.digicert.com")) {
+    if (shExpMatch(host, "*.entrust.net")
+        || shExpMatch(host, "*.digicert.com")
+        || shExpMatch(host, "*.verisign.net")
+        || shExpMatch(host, "*.digicert.com")) {
         return "DIRECT";
     }
 
 
     // ------------------ STRIPE ------------------
     // Based on https://stripe.com/docs/ips
-    if (host == "stripe.com" ||
-        shExpMatch(host, "*.stripe.com") ||
-        shExpMatch(host, "*.stripe.network") ||
-        shExpMatch(host, "*.device.stripe-terminal-local-reader.net")) {
+    if (host == "stripe.com"
+        || shExpMatch(host, "*.stripe.com")
+        || shExpMatch(host, "*.stripe.network")
+        || shExpMatch(host, "*.device.stripe-terminal-local-reader.net")) {
         return "DIRECT";
     }
 
     // ------------------ TESTING & DEBUGGING ------------------
-    if (host == "asdf.com" ||
-        host == "speedtest.net") {
+    if (host == "asdf.com"
+        || host == "speedtest.net") {
         return "DIRECT";
     }
 
@@ -98,9 +104,9 @@ function FindProxyForURL(url, host) {
     // ------------------ SUPERMASSIVE BLACK HOLE ------------------
     // Based on: https://www.youtube.com/watch?v=Xsp3_a-PMTw
     // Junk requests - skip logging
-    if (host == "c.apple.news" ||
-        host == "calendars.icloud.com" ||
-        host == "apple-finance.query.yahoo.com") {
+    if (host == "c.apple.news"
+        || host == "calendars.icloud.com"
+        || host == "apple-finance.query.yahoo.com") {
         return "PROXY 127.0.0.1:8080";
     }
     return "PROXY 127.0.0.1:8080";

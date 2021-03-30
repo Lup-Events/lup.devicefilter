@@ -7,10 +7,10 @@
 
 function FindProxyForURL(url, host) {
     // Block iOS updates
-    if (host == "mesu.apple.com" ||
-        host == "appldnld.apple.com" ||
-        host == "updates-http.cdn-apple.com" ||
-        host == "updates.cdn-apple.com") {
+    if (host == "mesu.apple.com"
+        || host == "appldnld.apple.com"
+        || host == "updates-http.cdn-apple.com"
+        || host == "updates.cdn-apple.com") {
         return "PROXY 127.0.0.1:8080";
     }
 
