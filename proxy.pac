@@ -89,7 +89,8 @@ function FindProxyForURL(url, host) {
         return "DIRECT";
     }
 
-    // Software update - DENIED!!
+    // Software update - DENIED
+    /*
     if (host == "appldnld.apple.com" || // iOS updates
         host == "configuration.apple.com" || // Rosetta 2 updates
         host == "gg.apple.com" || // iOS, tvOS, and macOS update
@@ -112,7 +113,7 @@ function FindProxyForURL(url, host) {
         //host == "xp.apple.com"
     ) {
         return "PROXY 127.0.0.1:8080"; // NOTE!!! Explicitly blackholed, so it doesn't taint debugging logging
-    }
+    }*/
 
     // Apple App store
     if (host == "itunes.apple.com" || shExpMatch(host, "*.itunes.apple.com") || // Store content such as apps, books, and music
@@ -166,11 +167,12 @@ function FindProxyForURL(url, host) {
         return "DIRECT";
     }
 
-    // Junk
+    // Junk - DENIED
+    /*
     if (host == "c.apple.news" || // Apple News ?
         shExpMatch(host, "*.ls.apple.com")) { // Apple Maps ??
         return "PROXY 127.0.0.1:8080"; // NOTE!!! Explicitly blackholed, so it doesn't taint debugging logging
-    }
+    }*/
 
     // Mystery - these are called when attempting to install an app from the app store
     if (host == "smoot.apple.com" || shExpMatch(host, "*.smoot.apple.com") || // Spotlight search?
