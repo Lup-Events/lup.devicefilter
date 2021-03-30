@@ -110,6 +110,31 @@ function FindProxyForURL(url, host) {
         return "DIRECT";
     }
 
+    // Software update
+    if (host == "appldnld.apple.com" || // iOS updates
+        host == "configuration.apple.com" || // Rosetta 2 updates
+        host == "gg.apple.com" || // iOS, tvOS, and macOS update
+        host == "gnf-mdn.apple.com" || // macOS updates
+        host == "gnf-mr.apple.co" || // macOS updates
+        host == "gs.apple.com" || // macOS updates	
+        host == "ig.apple.com" || // macOS updates	
+        host == "mesu.apple.com" || // Hosts software update catalogs
+        host == "ns.itunes.apple.com" ||
+        host == "oscdn.apple.com" || // macOS Recovery
+        host == "osrecovery.apple.com" || // macOS Recovery
+        host == "skl.apple.com" || // macOS updates	
+        host == "swcdn.apple.com" || // macOS updates	
+        host == "swdist.apple.com" || // macOS updates	
+        host == "swdownload.apple.com" || // macOS updates
+        host == "swpost.apple.com" || // macOS updates
+        host == "swscan.apple.com" || // macOS updates
+        host == "updates-http.cdn-apple.com" ||
+        host == "updates.cdn-apple.com" ||
+        host == "xp.apple.com") {
+        return "PROXY 127.0.0.1:8080"; // Explicitly blackholed, so it doesn't taint debugging logging
+    }
+
+
     // ------------------ STRIPE ------------------
     // Based on https://stripe.com/docs/ips
     if (host == "stripe.com" ||
