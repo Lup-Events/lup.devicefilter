@@ -27,7 +27,8 @@ function FindProxyForURL(url, host) {
     }
 
     // Lup Legacy
-    if (host == "lup.com.au" || shExpMatch(host, "*.lup.com.au")) {
+    if (host == "lup.com.au" || shExpMatch(host, "*.lup.com.au")
+        || host == "lup.co.nz" || shExpMatch(host, "*.lup.co.nz")) {
         return "DIRECT";
     }
 
