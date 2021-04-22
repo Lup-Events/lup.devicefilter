@@ -103,6 +103,14 @@ function FindProxyForURL(url, host) {
     }
 
 
+    // ------------------ TYRO ------------------
+    // Based on https://help.tyro.com/s/article/What-are-the-Network-connectivity-requirements-so-set-up-my-Tyro-Terminal
+    if (host == "tyro.com"
+        || shExpMatch(host, "*.tyro.com")) {
+        return "DIRECT";
+    }
+
+
     // ------------------ TESTING & DEBUGGING ------------------
     if (host == "asdf.com"
         || host == "speedtest.net") {
