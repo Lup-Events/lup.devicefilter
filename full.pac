@@ -95,15 +95,25 @@ function FindProxyForURL(url, host) {
         return "DIRECT";
     }
 
+
     // ------------------ VEND ------------------
     if (host == "vendhq.com"
         || shExpMatch(host, "*.vendhq.com")) { // According to their support it just needs "domainName.vendhq.com", however the cost of being narrow exceeds the time to correct - so going wide.
         return "DIRECT";
     }
 
+
     // ------------------ TESTING & DEBUGGING ------------------
     if (host == "asdf.com"
         || host == "speedtest.net") {
+        return "DIRECT";
+    }
+
+
+    // ------------------ FIREBASE (PEOPLE COUNTER) ------------------
+    if (host == "accounts.google.com"
+        || shExpMatch(host, "*.googleapis.com")
+        || shExpMatch(host, "*.firebaseio.com")) {
         return "DIRECT";
     }
 
