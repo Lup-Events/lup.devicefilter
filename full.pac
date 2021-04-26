@@ -126,6 +126,21 @@ function FindProxyForURL(url, host) {
     }
 
 
+    // ------------------ SQUARE ------------------
+    // Based on https://squareup.com/help/au/en/article/6537-square-terminal-troubleshooting
+    if (host == "squareup.com"
+        || host == "issquareup.com"
+        || host == "squarecdn.com"
+        || host == "api.skyhookwireless.com"
+        || host == "notify.bugsnag.com"
+        || host == "apytiqcuyrsq6-ats.iot.us-east-2.amazonaws.com"
+        || shExpMatch(host, "*.squareup.com")
+        || shExpMatch(host, "*.issquareup.com")
+        || shExpMatch(host, "*.squarecdn.com")) {
+        return "DIRECT";
+    }
+
+
     // ------------------ SUPERMASSIVE BLACK HOLE ------------------
     // Based on: https://www.youtube.com/watch?v=Xsp3_a-PMTw
     // Junk requests - skip logging
