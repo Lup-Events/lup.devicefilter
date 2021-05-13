@@ -141,6 +141,17 @@ function FindProxyForURL(url, host) {
     }
 
 
+    // ------------------ MISC ------------------
+    if (host == "code.jquery.com"
+        || host == "fonts.googleapis.com"
+        || host == "cdnjs.cloudflare.com"
+        || host == "s3-ap-southeast-2.amazonaws.com"
+        || host == "ssl.google-analytics.com"
+        || host == "fonts.gstatic.com") {
+        return "DIRECT";
+    }
+
+
     // ------------------ SUPERMASSIVE BLACK HOLE ------------------
     // Based on: https://www.youtube.com/watch?v=Xsp3_a-PMTw
     // Junk requests - skip logging
