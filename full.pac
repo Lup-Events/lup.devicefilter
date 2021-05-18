@@ -152,6 +152,12 @@ function FindProxyForURL(url, host) {
     }
 
 
+    // ------------------ BIT.LY ------------------
+    if (host == "bit.ly") {
+        return "DIRECT";
+    }
+
+
     // ------------------ SUPERMASSIVE BLACK HOLE ------------------
     // Based on: https://www.youtube.com/watch?v=Xsp3_a-PMTw
     // Junk requests - skip logging
