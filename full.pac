@@ -98,7 +98,10 @@ function FindProxyForURL(url, host) {
 
     // ------------------ VEND ------------------
     if (host == "vendhq.com"
-        || shExpMatch(host, "*.vendhq.com")) { // According to their support it just needs "domainName.vendhq.com", however the cost of being narrow exceeds the time to correct - so going wide.
+        || shExpMatch(host, "*.vendhq.com")
+        || host == "vendfrontendassets.freetls.fastly.net"
+        || host == "vendappcdn.global.ssl.fastly.net"
+        || host == "cdn.raygun.io") {
         return "DIRECT";
     }
 
@@ -106,7 +109,8 @@ function FindProxyForURL(url, host) {
     // ------------------ TYRO ------------------
     // Based on https://help.tyro.com/s/article/What-are-the-Network-connectivity-requirements-so-set-up-my-Tyro-Terminal
     if (host == "tyro.com"
-        || shExpMatch(host, "*.tyro.com")) {
+        || shExpMatch(host, "*.tyro.com")
+    ) {
         return "DIRECT";
     }
 
