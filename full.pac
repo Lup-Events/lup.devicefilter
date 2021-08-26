@@ -162,6 +162,15 @@ function FindProxyForURL(url, host) {
     }
 
 
+    // ------------------ LOCAL NETWORK ------------------
+    // Crass approximation of https://www.arin.net/reference/research/statistics/address_filters/
+    if (host.startsWith("192.168.")
+        || host.startsWith("172.")
+        || host.startsWith("10.")) {
+        return "DIRECT";
+    }
+
+
     // ------------------ SUPERMASSIVE BLACK HOLE ------------------
     // Based on: https://www.youtube.com/watch?v=Xsp3_a-PMTw
     // Junk requests - skip logging
