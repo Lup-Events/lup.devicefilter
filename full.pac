@@ -161,29 +161,6 @@ function FindProxyForURL(url, host) {
         return "DIRECT";
     }
 
-    // ------------------ CARE EXPO 210916 ------------------
-    if (host == "likefamily.com.au"
-        || host == "maps.googleapis.com"
-        || host == "maps.gstatic.com"
-        || host == "www.googletagmanager.com"
-        || host == "sentry.io"
-        || host == "homecareheroes-production.herokuapp.com"
-        || host == "snap.licdn.com"
-        || host == "static.hotjar.com"
-        || host == "www.google-analytics.com"
-        || host == "bat.bing.com"
-        || host == "js.hs-scripts.com"
-        || host == "assets.likefamily.com.au"
-        || host == "api.likefamily.com.au"
-        || host == "px.ads.linkedin.com"
-        || host == "js.hscollectedforms.net"
-        || host == "js.usemessages.com"
-        || host == "js.hsadspixel.net"
-        || host == "js.hubspotfeedback.com"
-    ) {
-        return "DIRECT";
-    }
-
     // ------------------ LOCAL NETWORK ------------------
     // Crass approximation of https://www.arin.net/reference/research/statistics/address_filters/
     if (host.startsWith("192.168.")
