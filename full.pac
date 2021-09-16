@@ -161,6 +161,11 @@ function FindProxyForURL(url, host) {
         return "DIRECT";
     }
 
+    // ------------------ ORGANISER SPECIAL REQUEST ------------------
+    if (host == "likefamily.com.au" // Care Expo 210916
+    ) {
+        return "DIRECT";
+    }
 
     // ------------------ LOCAL NETWORK ------------------
     // Crass approximation of https://www.arin.net/reference/research/statistics/address_filters/
