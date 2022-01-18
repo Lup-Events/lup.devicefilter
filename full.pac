@@ -43,11 +43,14 @@ function FindProxyForURL(url, host) {
         return "DIRECT";
     }
 
-    // ------------------ APP DEPLOYMENT AND TESTING ------------------
+    // ------------------ APP TESTING ------------------
     // Microsoft App Center
     if (host == "appcenter.ms" || shExpMatch(host, "*.appcenter.ms")) {
         return "DIRECT";
     }
+
+
+    // ------------------ DEVICE MANAGEMENT ------------------
 
     // Meraki MDM
     if (host == "meraki.com" || shExpMatch(host, "*.meraki.com")) {
