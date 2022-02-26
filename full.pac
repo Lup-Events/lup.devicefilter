@@ -164,6 +164,11 @@ function FindProxyForURL(url, host) {
         return "DIRECT";
     }
 
+    // ------------------ SENSIS ------------------
+    if (host == "api.sensisdata.com.au") {
+        return "DIRECT";
+    }
+
     // ------------------ LOCAL NETWORK ------------------
     // Crass approximation of https://www.arin.net/reference/research/statistics/address_filters/
     if (host.startsWith("192.168.")
