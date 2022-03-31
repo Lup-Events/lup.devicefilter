@@ -148,6 +148,14 @@ function FindProxyForURL(url, host) {
     }
 
 
+    // ------------------ FAST.COM ------------------
+        if (host == "fast.com"
+        || shExpMatch(host, "*.fast.com")
+        || shExpMatch(host, "*.nflxvideo.net")) {
+        return "DIRECT";
+    }
+
+
     // ------------------ MISC ------------------
     if (host == "code.jquery.com"
         || host == "fonts.googleapis.com"
