@@ -17,7 +17,7 @@ function FindProxyForURL(url, host) {
     // ------------------  LUP CORE ------------------
     // Lup Platform
     if (host == "lup.events" || shExpMatch(host, "*.lup.events")// Production
-        || host == "lupstaging.events" || shExpMatch(host, "*.lupstaging.events")) { // Staging
+        || host == "zzz.events" || shExpMatch(host, "*.zzz.events")) { // Staging
         return "DIRECT";
     }
 
@@ -40,6 +40,11 @@ function FindProxyForURL(url, host) {
     // Lup App library (via apps.lup.com.au)
     if (host == "lupmarvinthemartianprodu.blob.core.windows.net"
         || host == "lupmarvinthemartianprlgy.blob.core.windows.net") { // NOTE this is different from the line above.
+        return "DIRECT";
+    }
+    
+    // Lup Short 2
+    if (host == "lup.bz" || shExpMatch(host, "*.lup.bz")) {
         return "DIRECT";
     }
 
