@@ -178,8 +178,9 @@ function FindProxyForURL(url, host) {
     }
     
     
-    // ------------------ GOOGLE DRIVE ------------------
-    if (host == "drive.google.com") {
+    // ------------------ GOOGLE ------------------
+    if (host == "google.com" || shExpMatch(host, "*.google.com") 
+        || host == "googleusercontent.com" || shExpMatch(host, "*.googleusercontent.com")) {
         return "DIRECT";
     }
 
