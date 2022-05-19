@@ -177,20 +177,6 @@ function FindProxyForURL(url, host) {
         return "DIRECT";
     }
     
-    
-    // ------------------ GOOGLE ------------------
-    if (host == "google.com" || shExpMatch(host, "*.google.com") 
-        || host == "googleusercontent.com" || shExpMatch(host, "*.googleusercontent.com")) {
-        return "DIRECT";
-    }
-    
-    
-    // ------------------ WETRANSFER ------------------
-    if (host == "wetransfer.com" || shExpMatch(host, "*.wetransfer.com") 
-        || host == "we.tl" || shExpMatch(host, "*.we.tl")) {
-        return "DIRECT";
-    }
-
 
     // ------------------ QR.IO ------------------
     if (host == "qr.io") {
