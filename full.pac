@@ -183,6 +183,13 @@ function FindProxyForURL(url, host) {
         || host == "googleusercontent.com" || shExpMatch(host, "*.googleusercontent.com")) {
         return "DIRECT";
     }
+    
+    
+    // ------------------ WETRANSFER ------------------
+    if (host == "wetransfer.com" || shExpMatch(host, "*.wetransfer.com") 
+        || host == "we.tl" || shExpMatch(host, "*.we.tl")) {
+        return "DIRECT";
+    }
 
 
     // ------------------ QR.IO ------------------
