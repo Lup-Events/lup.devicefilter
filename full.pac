@@ -196,6 +196,15 @@ function FindProxyForURL(url, host) {
     }
     
 
+    // ------------------ RX ------------------
+    if (host == "rxweb-pre.com" 
+        || shExpMatch(host, "*.rxweb-pre.com")
+        || host == "rxweb.com" // Guessed this host
+        || shExpMatch(host, "*.rxweb.com")) { // Guessed this host
+        return "DIRECT";
+    }
+    
+
     // ------------------ LOCAL NETWORK ------------------
     // Crass approximation of https://www.arin.net/reference/research/statistics/address_filters/
     if (host.startsWith("192.168.")
