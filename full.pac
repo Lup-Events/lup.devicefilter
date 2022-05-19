@@ -171,6 +171,12 @@ function FindProxyForURL(url, host) {
     if (host == "bit.ly") {
         return "DIRECT";
     }
+    
+    
+    // ------------------ GOOGLE DRIVE ------------------
+    if (host == "drive.google.com") {
+        return "DIRECT";
+    }
 
 
     // ------------------ QR.IO ------------------
