@@ -129,13 +129,6 @@ function FindProxyForURL(url, host) {
     }
 
 
-    // ------------------ SPEEDTEST.NET ------------------
-    if (host == "speedtest.net"
-        || host == "www.speedtest.net") {
-        return "DIRECT";
-    }
-
-
     // ------------------ FAST.COM ------------------
     if (host == "fast.com"
         || shExpMatch(host, "*.fast.com")
