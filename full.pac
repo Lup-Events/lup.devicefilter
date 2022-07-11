@@ -138,6 +138,39 @@ function FindProxyForURL(url, host) {
     }
 
 
+    // ------------------ GOOGLE DRIVE ------------------
+    // Based on https://support.google.com/a/answer/2589954?product_name=UnuFlow&hl=en&visit_id=637931733729660328-1150806619&rd=1&src=supportwidget0&hl=en
+    if (host == "www.google.com"
+        || host == "accounts.google.com"
+        || host == "googledrive.com"
+        || host == "drive.google.com"
+        || shExpMatch(host, "*.drive.google.com")
+        || host == "docs.google.com"
+        || shExpMatch(host, "*.docs.google.com")
+        || shExpMatch(host, "*.c.docs.google.com")
+        || host == "sheets.google.com"
+        || host == "slides.google.com"
+        || host == "gg.google.com"
+        || host == "script.google.com"
+        || host == "s.ytimg.com"
+        || host == "apis.google.com"
+        || shExpMatch(host, "*.clients*.google.com")
+        || shExpMatch(host, "*.googleapis.com")
+        || shExpMatch(host, "*.googleusercontent.com")
+        || shExpMatch(host, "*.gstatic.com")
+        || shExpMatch(host, "*.gvt1.com")
+        || shExpMatch(host, "lh*.google.com")
+        || shExpMatch(host, "*.client-channel.google.com")
+        || shExpMatch(host, "clients*.google.com")
+        || host == "inputtools.google.com"
+        || host == "sites.google.com"
+        || shExpMatch(host, "*.sites.google.com")
+        || shExpMatch(host, "*.googlegroups.com")
+        || host == "ipv4.google.com") {
+        return "DIRECT";
+    }
+
+    
     // ------------------ SQUARE ------------------
     // Based on https://squareup.com/help/au/en/article/6537-square-terminal-troubleshooting
     if (host == "squareup.com"
