@@ -124,11 +124,24 @@ function FindProxyForURL(url, host) {
 
 
     // ------------------ TESTING & DEBUGGING ------------------
-    if (host == "asdf.com"
-        || host == "speedtest.net") {
+    if (host == "asdf.com") {
         return "DIRECT";
     }
 
+
+    // ------------------ SPEEDTEST.NET ------------------
+    if (host == "speedtest.net"
+        || host == "www.speedtest.net") {
+        return "DIRECT";
+    }
+
+
+    // ------------------ FAST.COM ------------------
+    if (host == "fast.com"
+        || shExpMatch(host, "*.fast.com")
+        || shExpMatch(host, "*.nflxvideo.net")) {
+        return "DIRECT";
+    }
 
     // ------------------ FIREBASE (PEOPLE COUNTER) ------------------
     if (host == "accounts.google.com"
@@ -170,7 +183,7 @@ function FindProxyForURL(url, host) {
         return "DIRECT";
     }
 
-    
+
     // ------------------ SQUARE ------------------
     // Based on https://squareup.com/help/au/en/article/6537-square-terminal-troubleshooting
     if (host == "squareup.com"
@@ -182,14 +195,6 @@ function FindProxyForURL(url, host) {
         || shExpMatch(host, "*.squareup.com")
         || shExpMatch(host, "*.issquareup.com")
         || shExpMatch(host, "*.squarecdn.com")) {
-        return "DIRECT";
-    }
-
-
-    // ------------------ FAST.COM ------------------
-        if (host == "fast.com"
-        || shExpMatch(host, "*.fast.com")
-        || shExpMatch(host, "*.nflxvideo.net")) {
         return "DIRECT";
     }
 
