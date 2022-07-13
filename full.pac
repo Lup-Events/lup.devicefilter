@@ -48,6 +48,12 @@ function FindProxyForURL(url, host) {
         return "DIRECT";
     }
 
+    // ------------------ Reed ------------------
+    // Reed
+    if (host == "rxglobal.com" || shExpMatch(host, "*.rxglobal.com")) {
+        return "DIRECT";
+    }
+
     // ------------------ APP TESTING ------------------
     // Microsoft App Center
     if (host == "appcenter.ms" || shExpMatch(host, "*.appcenter.ms")) {
