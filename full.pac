@@ -225,6 +225,15 @@ function FindProxyForURL(url, host) {
     if (host == "rxglobal.com" || shExpMatch(host, "*.rxglobal.com")) {
         return "DIRECT";
     }
+    if (host == "jsdelivr.net" || shExpMatch(host, "*.jsdelivr.com")) {
+        return "DIRECT";
+    }
+    if (host == "reedexpo.com" || shExpMatch(host, "*.reedexpo.com")) {
+        return "DIRECT";
+    }
+    if (host == "rxweb-prd.com" || shExpMatch(host, "*.rxweb-prd.com")) {
+        return "DIRECT";
+    }
 
     if (host == "rxweb-pre.com" 
         || shExpMatch(host, "*.rxweb-pre.com")
